@@ -1,0 +1,34 @@
+{
+  "233182462": {
+    "id": 0,
+    "name": "Santa Monica Studio",
+    "numberOfEmployees": 300,
+    "foundationYear": "1999",
+    "games": [
+      {
+        "id": 0,
+        "name": "God Of War",
+        "platform": [
+          "Playstation 2"
+        ],
+        "publicationYear": "2005"
+      },
+      {
+        "id": 1,
+        "name": "God Of War II",
+        "platform": [
+          "Playstation 2"
+        ],
+        "publicationYear": "2007"
+      },
+      {
+        "id": 2,
+        "name": "God Of War III",
+        "platform": [
+          "Playstation 3"
+        ],
+        "publicationYear": "2010"
+      }
+    ]
+  }
+}

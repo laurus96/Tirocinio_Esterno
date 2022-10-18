@@ -1,0 +1,52 @@
+    version: "3.8"
+
+    services:
+      app:
+        image: laurus98/accessing-data-with-mysql-docker
+        container_name: app
+        ports:
+          - 8080:8080
+        depends_on:
+          mysql_db:
+            condition: service_healthy
+        networks:
+          - spring-boot
+        environment:
+          SPRING_APPLICATION_JSON: '{
+            "spring.datasource.url"  : "jdbc:mysql://mysql_db:3306/spring_test",
+            "spring.datasource.username" : "springer",
+            "spring.datasource.password" : "test",
+            "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+            "spring.jpa.hibernate.ddl-auto" : "update"
+          }'
+
+      mysql_db:
+        image: mysql:latest
+        container_name: mysql_db
+        ports:
+          - 3306:3306
+        volumes:
+          - mysql-db:/var/lib/mysql
+        networks:
+          - spring-boot
+        environment:
+          MYSQL_ROOT_PASSWORD: test
+          MYSQL_DATABASE: spring_test
+          MYSQL_USER: springer
+          MYSQL_PASSWORD: test
+        healthcheck:
+          test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+          timeout: 20s
+          retries: 10
+
+    volumes:
+      mysql-db:
+        external: true
+        name: mysql-db
+
+    networks:
+      spring-boot:
+        external: true
+        name: spring-boot
+
+
